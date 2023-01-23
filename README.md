@@ -1,0 +1,3 @@
+0x1B. C - Sorting algorithms & Big O
+Tests
+Here is a quick tip to help you test your sorting algorithms with big sets of random integers: Random.org
