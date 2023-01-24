@@ -1,66 +1,33 @@
 #include "sort.h"
-#include <limits.h>
 
 /**
- * get_max - Find max value in array of integers
- *
- * @array: array to find max value of
- * @size: size of the array
- * Return: 0
+ * selection_sort - A function that use selection sort algorithm.
+ * @array: An array to sort.
+ * @size: The size of the array.
+ * Return: Nothing.
  */
-int get_max(int *array, size_t size)
+void selection_sort(int *array, size_t size)
 {
-int max = INT_MIN;
+	int aux = 0;
+	size_t i = 0, j = 0, pos = 0;
 
-while (size--)
-if (array[size] > max)
-max = array[size];
+	if (array == NULL || size == 0)
+		return;
 
-return (max);
-}
-
-/**
- * counting_sort - sort an array
- * @array: array to sort
- * @size: size of array to sort
- */
-void counting_sort(int *array, size_t size)
-{
-int *temp, *cpy, j, max;
-size_t i;
-
-if (!array || size < 2)
-return;
-
-max = get_max(array, size);
-temp = calloc(max + 1, sizeof(*temp));
-if (!temp)
-return;
-
-cpy = malloc(sizeof(*cpy) * size);
-if (!cpy)
-{
-free(temp);
-return;
-}
-
-for (i = 0; i < size; i++)
-temp[array[i]]++;
-
-for (j = 1; j < max + 1; j++)
-temp[j] += temp[j - 1];
-
-print_array(temp, max + 1);
-
-for (i = 0; i < size; i++)
-{
-temp[array[i]]--;
-cpy[temp[array[i]]] = array[i];
-}
-
-for (i = 0; i < size; i++)
-array[i] = cpy[i];
-
-free(temp);
-free(cpy);
+	for (; i < size - 1; i++)
+	{
+		pos = i;
+		for (j = i + 1; j < size; j++)
+		{
+			if (array[j] < array[pos])
+				pos = j;
+		}
+		if (pos != i)
+		{
+			aux = array[i];
+			array[i] = array[pos];
+			array[pos] = aux;
+			print_array(array, size);
+		}
+	}
 }
